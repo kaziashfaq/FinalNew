@@ -2,9 +2,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class Visitor {
+public class RemoveBook {
 
-	private JFrame frmPms;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -13,8 +13,8 @@ public class Visitor {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Visitor window = new Visitor();
-					window.frmPms.setVisible(true);
+					RemoveBook window = new RemoveBook();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -25,7 +25,7 @@ public class Visitor {
 	/**
 	 * Create the application.
 	 */
-	public Visitor() {
+	public RemoveBook() {
 		initialize();
 	}
 
@@ -33,11 +33,9 @@ public class Visitor {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmPms = new JFrame();
-		frmPms.setTitle("PMS");
-		frmPms.setBounds(100, 100, 450, 300);
-		frmPms.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmPms.getContentPane().setLayout(null);
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

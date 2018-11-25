@@ -61,6 +61,12 @@ public class Management implements Subject  {
 		frmPms.getContentPane().add(operator);
 		
 		JButton member = new JButton("Member");
+		operator.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmPms.dispose();
+				Operator op = new Operator(documents);
+			}
+		});
 		member.setBounds(184, 102, 89, 23);
 		frmPms.getContentPane().add(member);
 		
