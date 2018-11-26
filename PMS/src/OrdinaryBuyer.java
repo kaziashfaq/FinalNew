@@ -1,8 +1,8 @@
 
 public class OrdinaryBuyer extends Buyer {
 
-	public OrdinaryBuyer(Subject sub){
-		super(sub);
+	public OrdinaryBuyer(Subject sub,String name){
+		super(sub,name);
 	}
 	
 	public void register(){

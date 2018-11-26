@@ -1,8 +1,10 @@
 
 public class RegisteredBuyer extends Buyer {
-
-	public RegisteredBuyer(Subject sub){
-		super(sub);
+	
+	public RegisteredBuyer(Subject sub,String name){
+		
+		super(sub,name);
+		
 	}
 	
 	public void unsubscribe(){

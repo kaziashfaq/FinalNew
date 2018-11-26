@@ -21,6 +21,7 @@ public class Member {
 
 	private JFrame frmMember;
 	private Vector<Document> docs;
+	private RegisteredBuyer regBuy;
 	/**
 	 * Launch the application.
 	 */
@@ -40,7 +41,8 @@ public class Member {
 	/**
 	 * Create the application.
 	 */
-	public Member(Vector<Document> docs) {
+	public Member(Vector<Document> docs, RegisteredBuyer rb) {
+		regBuy = rb;
 		this.docs = docs;
 		initialize();
 	}
@@ -50,32 +52,18 @@ public class Member {
 	 */
 	private void initialize() {
 		frmMember = new JFrame();
+		frmMember.getContentPane().setBackground(Color.DARK_GRAY);
 		frmMember.setTitle("Member");
 		frmMember.getContentPane().setEnabled(false);
-		frmMember.setBounds(100, 100, 450, 300);
+		frmMember.setBounds(100, 100, 588, 406);
 		frmMember.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMember.getContentPane().setLayout(null);
-		
+		frmMember.setVisible(true);
 		JButton btnSearchForA = new JButton("Search for a document");
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
-				if(type.equals("Book")){
-					frmMember.dispose();
-					SearchBook sb = new SearchBook(docs);
-				}
-				else if(type.equals("Journal")){
-					frmMember.dispose();
-					SearchJournal sj = new SearchJournal(docs);
-				}
-				else if(type.equals("Magazine")){
-					frmMember.dispose();
-					SearchMagazine sm = new SearchMagazine(docs);
-				}
-				else
-				{
-				JOptionPane.showMessageDialog(null, "Invalid input, please follow the instruction");	
-				}
+				
 			}
 		});
 		btnSearchForA.setBounds(128, 52, 159, 42);
@@ -95,17 +83,10 @@ public class Member {
 		btnUns.setBounds(128, 180, 159, 42);
 		frmMember.getContentPane().add(btnUns);
 		
-		JLabel lblHelloMember = new JLabel("Hello, Member");
-		lblHelloMember.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblHelloMember.setBounds(164, 10, 110, 32);
-		frmMember.getContentPane().add(lblHelloMember);
+		JLabel name = new JLabel("Hello, " + regBuy.getName());
+		name.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		name.setForeground(Color.WHITE);
+		name.setBounds(433, 11, 129, 14);
+		frmMember.getContentPane().add(name);
 	}
-//	private class SwingAction extends AbstractAction {
-//		public SwingAction() {
-//			putValue(NAME, "SwingAction");
-//			putValue(SHORT_DESCRIPTION, "Some short description");
-//		}
-//		public void actionPerformed(ActionEvent e) {
-//		}
-//	}
 }

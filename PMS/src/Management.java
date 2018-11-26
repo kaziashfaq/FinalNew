@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -11,13 +13,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Management implements Subject  {
-
+	private Subject subject;
 	private JFrame frmPms;
 	private Vector<Document> documents;
-	private Vector<Observer> buyers;
+	//since database and login are not requirements we are using 3 members to begin with, in an actual program it will be automatic and the number will depend on the database
+	private Vector<RegisteredBuyer> buyers;
+	//private Vector<Observer> observers;
 
-	/**
-	 * Launch the application.
+	/**	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		Management management = new Management();
@@ -28,6 +31,9 @@ public class Management implements Subject  {
 	 * Create the application.
 	 */
 	public Management() {
+		buyers = new Vector<RegisteredBuyer>();
+		populateBuyers();
+		//System.out.println(buyers.size());
 		initialize();
 	}
 
@@ -63,8 +69,21 @@ public class Management implements Subject  {
 		JButton member = new JButton("Member");
 		member.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
+				String name = JOptionPane.showInputDialog("Enter your name");
+				//RegisteredBuyer buyer = new RegisteredBuyer(subject,name);
+				boolean found = false;
+				for(int i = 0; i < buyers.size();i++){
+					if(buyers.get(i).getName().equals(name)){
+				found = true;		
 				frmPms.dispose();
-				Member me = new Member(documents);
+				Member me = new Member(documents,buyers.get(i));
+					}
+					
+			}
+				if(found == false){
+					JOptionPane.showMessageDialog(null, "Please try again");
+				}
+				
 			}
 		});
 		member.setBounds(184, 102, 89, 23);
@@ -82,9 +101,9 @@ public class Management implements Subject  {
 	}
 
 	@Override
-	public void register(Observer o) {
+	public void register(Buyer o) {
 		// TODO Auto-generated method stub
-		buyers.add(o);
+		buyers.add((RegisteredBuyer) o);
 	}
 
 	@Override
@@ -102,5 +121,13 @@ public class Management implements Subject  {
 		buyers.remove(o);
 	}
 
-	
+	/*
+	 * since we are not using database and login, at the beginning we will populate the buyers vector with few members;
+	 */
+	private void populateBuyers(){
+	 for(int i = 0; i < 3; i++){
+		 RegisteredBuyer b = new RegisteredBuyer(subject,("name" + Integer.toString(i)));
+		 buyers.add(b);
+	 }
+	}
 }
