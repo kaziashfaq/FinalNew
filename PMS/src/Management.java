@@ -20,8 +20,8 @@ public class Management implements Subject  {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-	Management management = new Management();
-	management.frmPms.setVisible(true);
+		Management management = new Management();
+		management.frmPms.setVisible(true);
 	}
 
 	/**
@@ -61,16 +61,22 @@ public class Management implements Subject  {
 		frmPms.getContentPane().add(operator);
 		
 		JButton member = new JButton("Member");
-		operator.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		member.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
 				frmPms.dispose();
-				Operator op = new Operator(documents);
+				Member me = new Member(documents);
 			}
 		});
 		member.setBounds(184, 102, 89, 23);
 		frmPms.getContentPane().add(member);
 		
 		JButton visitor = new JButton("Visitor");
+		visitor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent b) {
+				frmPms.dispose();
+				Visitor vi = new Visitor(documents);
+			}
+		});
 		visitor.setBounds(184, 138, 89, 23);
 		frmPms.getContentPane().add(visitor);
 	}

@@ -53,13 +53,14 @@ public class Operator implements MaintainDocs {
 		frmOperator.getContentPane().setLayout(null);
 		
 		JList list = new JList();
+		list.setBounds(0, 0, 228, 262);
 		list.setFont(new Font("Serif", Font.PLAIN, 13));
 		list.setForeground(Color.WHITE);
 		list.setBackground(Color.DARK_GRAY);
-		list.setBounds(0, 0, 228, 262);
 		frmOperator.getContentPane().add(list);
 		
 		JButton add = new JButton("Add");
+		add.setBounds(283, 52, 89, 23);
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
@@ -81,7 +82,6 @@ public class Operator implements MaintainDocs {
 				}
 			}
 		});
-		add.setBounds(283, 52, 89, 23);
 		frmOperator.getContentPane().add(add);
 		
 		JButton remove = new JButton("Remove");

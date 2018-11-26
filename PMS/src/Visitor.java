@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -6,30 +7,33 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-public class Vistor {
+public class Visitor {
 
 	private JFrame frmVistor;
+	private Vector<Document> docs;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Vistor window = new Vistor();
-					window.frmVistor.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Vistor window = new Vistor();
+//					window.frmVistor.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
+	
 	/**
 	 * Create the application.
 	 */
-	public Vistor() {
+	public Visitor(Vector<Document> docs) {
+		this.docs = docs;
 		initialize();
 	}
 
