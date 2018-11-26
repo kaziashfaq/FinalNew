@@ -26,6 +26,7 @@ public class VisitorSearch {
 	private Vector<Document> docs;
 	private DefaultListModel<String> lister;
 	private String docName;
+	private RegisteredBuyer regBuy;
 
 
 	/**
@@ -47,8 +48,8 @@ public class VisitorSearch {
 	/**
 	 * Create the application.
 	 */
-	public VisitorSearch(Vector<Document> docs) {
-
+	public VisitorSearch(Vector<Document> docs, RegisteredBuyer regBuy) {
+		this.regBuy = regBuy;
 		this.docs = docs;
 		initialize();
 	}
@@ -145,7 +146,7 @@ public class VisitorSearch {
 		ret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmSearch.dispose();
-				Visitor vi = new Visitor(docs);
+				Visitor vi = new Visitor(docs,regBuy);
 			}
 		});
 		ret.setBounds(481, 311, 89, 23);

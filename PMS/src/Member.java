@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JTextArea;
 
 public class Member {
 
@@ -79,6 +80,8 @@ public class Member {
 		JButton btnUns = new JButton("Unsubscribe");
 		btnUns.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frmMember.dispose();
+				Visitor vi = new Visitor(docs, regBuy);
 			}
 		});
 		btnUns.setBounds(349, 175, 179, 23);
@@ -98,7 +101,25 @@ public class Member {
 				
 			}
 		});
-		btnReturn.setBounds(349, 227, 179, 23);
+		btnReturn.setBounds(349, 276, 179, 23);
 		frmMember.getContentPane().add(btnReturn);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBackground(Color.LIGHT_GRAY);
+		textArea.setBounds(10, 24, 293, 305);
+		frmMember.getContentPane().add(textArea);
+		
+		JButton btnNewButton = new JButton("View promotion");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.setText("Promotion\n");
+				textArea.append("All Books 20% off!!\n");
+				textArea.append("All Journal 20% off!!\n");
+				textArea.append("All Magazine 20% off!!\n");
+
+			}
+		});
+		btnNewButton.setBounds(349, 227, 179, 23);
+		frmMember.getContentPane().add(btnNewButton);
 	}
 }

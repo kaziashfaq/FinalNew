@@ -9,12 +9,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class Visitor {
 
 	private JFrame frmVisitor;
 	private Vector<Document> docs;
+	private RegisteredBuyer regBuy;
 
 	/**
 	 * Launch the application.
@@ -36,8 +38,8 @@ public class Visitor {
 	/**
 	 * Create the application.
 	 */
-	public Visitor(Vector<Document> docs) {
-		
+	public Visitor(Vector<Document> docs,RegisteredBuyer regBuy) {
+		this.regBuy = regBuy;
 		this.docs = docs;
 		initialize();
 	}
@@ -64,8 +66,7 @@ public class Visitor {
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmVisitor.dispose();
-				VisitorSearch vs = new VisitorSearch(docs);
-				
+				VisitorSearch vs = new VisitorSearch(docs,regBuy);
 			}
 		});
 		btnSearchForA.setBounds(250, 56, 170, 32);
@@ -76,7 +77,14 @@ public class Visitor {
 		frmVisitor.getContentPane().add(btnMakeAPayment);
 		
 		JButton btnRegister = new JButton("Register");
-		
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = JOptionPane.showInputDialog("What is the your's name?");
+					regBuy.setName(name);
+					frmVisitor.dispose();
+					Member me = new Member(docs, regBuy);
+				}
+		});
 		btnRegister.setBounds(250, 165, 170, 32);
 		frmVisitor.getContentPane().add(btnRegister);
 		
@@ -91,5 +99,4 @@ public class Visitor {
 		btnNewButton.setBounds(250, 220, 170, 32);
 		frmVisitor.getContentPane().add(btnNewButton);
 	}
-
 }

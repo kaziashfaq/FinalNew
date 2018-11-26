@@ -78,7 +78,6 @@ public class Management implements Subject  {
 		member.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
 				String name = JOptionPane.showInputDialog("Enter your name");
-				String n = "Yanzhao";
 				//RegisteredBuyer buyer = new RegisteredBuyer(subject,name);
 				boolean found = false;
 				for(int i = 0; i < buyers.size();i++){
@@ -86,9 +85,9 @@ public class Management implements Subject  {
 						buyers.get(i).setName("Yanzhao");
 					}
 					if(buyers.get(i).getName().equals(name)){
-				found = true;		
-				frmPms.dispose();
-				Member me = new Member(documents,buyers.get(i));
+						found = true;		
+						frmPms.dispose();
+						Member me = new Member(documents,buyers.get(i));
 					}
 					
 			}
@@ -105,7 +104,9 @@ public class Management implements Subject  {
 		visitor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmPms.dispose();
-				Visitor vi = new Visitor(documents);
+				for(int i = 0; i < buyers.size();i++) {
+					Visitor vi = new Visitor(documents,buyers.get(i));
+				}
 			}
 		});
 		visitor.setBounds(184, 138, 89, 23);
