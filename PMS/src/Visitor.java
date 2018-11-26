@@ -33,6 +33,7 @@ public class Visitor {
 	 * Create the application.
 	 */
 	public Visitor(Vector<Document> docs) {
+		
 		this.docs = docs;
 		initialize();
 	}

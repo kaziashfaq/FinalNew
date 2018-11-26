@@ -115,6 +115,15 @@ public class Operator implements MaintainDocs {
 		frmOperator.getContentPane().add(remove);
 		
 		JButton update = new JButton("Update");
+		update.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < docs.size();i++){
+					if(docs.get(i).getName().equals(docName)){
+						update(docName);
+					}
+				}
+			}
+		});
 		update.setBounds(196, 295, 82, 23);
 		frmOperator.getContentPane().add(update);
 		
@@ -220,9 +229,29 @@ public class Operator implements MaintainDocs {
 	}
 
 	@Override
-	public void update(Document doc) {
-		// TODO Auto-generated method stub
-		
+	public void update(String name) {
+		for(int i = 0; i < docs.size(); i++) {
+			if(docs.get(i).getName().equals(name)) {
+				docs.remove(docs.get(i));
+				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
+				if(type.equals("Book")){
+					frmOperator.dispose();
+					AddBook ab = new AddBook(docs);
+				}
+				else if(type.equals("Journal")){
+					frmOperator.dispose();
+					AddJournal aj = new AddJournal(docs);
+				}
+				else if(type.equals("Magazine")){
+					frmOperator.dispose();
+					AddMagazine am = new AddMagazine(docs);
+				}
+				else
+				{
+				JOptionPane.showMessageDialog(null, "Invalid input, please follow the instruction");	
+				}
+			}
+		}
 	}
 	public void display(){
 		lister.removeAllElements();
