@@ -62,17 +62,18 @@ public class Member {
 		JButton btnSearchForA = new JButton("Search for a document");
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
+				frmMember.dispose();
+				Search se = new Search(docs,regBuy);
 				
 			}
 		});
-		btnSearchForA.setBounds(349, 59, 159, 23);
+		btnSearchForA.setBounds(349, 72, 179, 23);
 		btnSearchForA.setHorizontalAlignment(SwingConstants.TRAILING);
 
 		frmMember.getContentPane().add(btnSearchForA);
 		
 		JButton btnMakeAPayment = new JButton("Make a payment");
-		btnMakeAPayment.setBounds(349, 93, 159, 23);
+		btnMakeAPayment.setBounds(349, 123, 179, 23);
 		frmMember.getContentPane().add(btnMakeAPayment);
 		
 		JButton btnUns = new JButton("Unsubscribe");
@@ -80,7 +81,7 @@ public class Member {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnUns.setBounds(349, 127, 159, 23);
+		btnUns.setBounds(349, 175, 179, 23);
 		frmMember.getContentPane().add(btnUns);
 		
 		JLabel name = new JLabel("Hello, " + regBuy.getName());
@@ -88,5 +89,16 @@ public class Member {
 		name.setForeground(Color.WHITE);
 		name.setBounds(433, 11, 129, 14);
 		frmMember.getContentPane().add(name);
+		
+		JButton btnReturn = new JButton("Return");
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMember.dispose();
+				Management ma = new Management(docs);
+				
+			}
+		});
+		btnReturn.setBounds(349, 227, 179, 23);
+		frmMember.getContentPane().add(btnReturn);
 	}
 }

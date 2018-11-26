@@ -13,6 +13,10 @@ public class Buyer implements Observer {
 	public String getName(){
 		return name;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public void update(Vector<Document> docs) {
 		// TODO Auto-generated method stub

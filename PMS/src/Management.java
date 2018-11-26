@@ -78,9 +78,13 @@ public class Management implements Subject  {
 		member.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
 				String name = JOptionPane.showInputDialog("Enter your name");
+				String n = "Yanzhao";
 				//RegisteredBuyer buyer = new RegisteredBuyer(subject,name);
 				boolean found = false;
 				for(int i = 0; i < buyers.size();i++){
+					if(i == 1) {
+						buyers.get(i).setName("Yanzhao");
+					}
 					if(buyers.get(i).getName().equals(name)){
 				found = true;		
 				frmPms.dispose();
@@ -99,7 +103,7 @@ public class Management implements Subject  {
 		
 		JButton visitor = new JButton("Visitor");
 		visitor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent b) {
+			public void actionPerformed(ActionEvent e) {
 				frmPms.dispose();
 				Visitor vi = new Visitor(documents);
 			}

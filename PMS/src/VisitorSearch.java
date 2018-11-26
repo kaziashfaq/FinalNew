@@ -19,14 +19,14 @@ import javax.swing.event.ListSelectionListener;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-public class Search {
+public class VisitorSearch {
 
 	private JFrame frmSearch;
 	private JList<String> list;
 	private Vector<Document> docs;
 	private DefaultListModel<String> lister;
 	private String docName;
-	private RegisteredBuyer regBuy;
+
 
 	/**
 	 * Launch the application.
@@ -47,8 +47,8 @@ public class Search {
 	/**
 	 * Create the application.
 	 */
-	public Search(Vector<Document> docs,RegisteredBuyer regBuy) {
-		this.regBuy = regBuy;
+	public VisitorSearch(Vector<Document> docs) {
+
 		this.docs = docs;
 		initialize();
 	}
@@ -69,7 +69,7 @@ public class Search {
 		list.setFont(new Font("Serif", Font.BOLD, 13));
 		list.setForeground(Color.WHITE);
 		list.setBackground(Color.DARK_GRAY);
-		list.addListSelectionListener(new DocListen());
+		list.addListSelectionListener(new DocListener());
 		frmSearch.getContentPane().add(list);
 		display();
 		
@@ -145,7 +145,7 @@ public class Search {
 		ret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmSearch.dispose();
-				Member me = new Member(docs,regBuy);
+				Visitor vi = new Visitor(docs);
 			}
 		});
 		ret.setBounds(481, 311, 89, 23);
@@ -212,7 +212,7 @@ public class Search {
 		
 	}
 	
-	class DocListen implements ListSelectionListener{
+	class DocListener implements ListSelectionListener{
 
 		public void valueChanged(ListSelectionEvent arg0) {
 			// TODO Auto-generated method stub

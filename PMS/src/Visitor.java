@@ -1,15 +1,19 @@
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class Visitor {
 
-	private JFrame frmVistor;
+	private JFrame frmVisitor;
 	private Vector<Document> docs;
 
 	/**
@@ -42,27 +46,50 @@ public class Visitor {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmVistor = new JFrame();
-		frmVistor.setTitle("Vistor");
-		frmVistor.setBounds(100, 100, 450, 300);
-		frmVistor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmVistor.getContentPane().setLayout(null);
+		frmVisitor = new JFrame();
+		frmVisitor.getContentPane().setBackground(Color.DARK_GRAY);
+		frmVisitor.setTitle("Member");
+		frmVisitor.getContentPane().setEnabled(false);
+		frmVisitor.setBounds(100, 100, 504, 357);
+		frmVisitor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmVisitor.getContentPane().setLayout(null);
+		frmVisitor.setVisible(true);
 		
 		JLabel lblHelloVistor = new JLabel("Hello, Vistor");
-		lblHelloVistor.setBounds(163, 21, 113, 15);
-		frmVistor.getContentPane().add(lblHelloVistor);
+		lblHelloVistor.setForeground(Color.WHITE);
+		lblHelloVistor.setBounds(196, 21, 113, 15);
+		frmVisitor.getContentPane().add(lblHelloVistor);
 		
 		JButton btnSearchForA = new JButton("Search for a document");
-		btnSearchForA.setBounds(133, 58, 159, 42);
-		frmVistor.getContentPane().add(btnSearchForA);
+		btnSearchForA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmVisitor.dispose();
+				VisitorSearch vs = new VisitorSearch(docs);
+				
+			}
+		});
+		btnSearchForA.setBounds(250, 56, 170, 32);
+		frmVisitor.getContentPane().add(btnSearchForA);
 		
 		JButton btnMakeAPayment = new JButton("Make a payment");
-		btnMakeAPayment.setBounds(133, 126, 159, 42);
-		frmVistor.getContentPane().add(btnMakeAPayment);
+		btnMakeAPayment.setBounds(250, 112, 170, 32);
+		frmVisitor.getContentPane().add(btnMakeAPayment);
 		
 		JButton btnRegister = new JButton("Register");
-		btnRegister.setBounds(133, 187, 159, 42);
-		frmVistor.getContentPane().add(btnRegister);
+		
+		btnRegister.setBounds(250, 165, 170, 32);
+		frmVisitor.getContentPane().add(btnRegister);
+		
+		JButton btnNewButton = new JButton("Return");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmVisitor.dispose();
+				Management ma = new Management(docs);
+				
+			}
+		});
+		btnNewButton.setBounds(250, 220, 170, 32);
+		frmVisitor.getContentPane().add(btnNewButton);
 	}
 
 }
