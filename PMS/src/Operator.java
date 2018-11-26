@@ -4,20 +4,34 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.ScrollPane;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
+import javax.swing.JLabel;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import javax.swing.JTextArea;
 
 public class Operator implements MaintainDocs {
 
 	private JFrame frmOperator;
 	private String name;
 	private Vector<Document> docs;
+	private DefaultListModel<String> lister;
+	private JList<String> list;
+	private JScrollPane jp;
+	private String docName;
+	private Management man;
 	
-
 	/**
 	 * Launch the application.
 	 */
@@ -41,26 +55,29 @@ public class Operator implements MaintainDocs {
 		this.docs = docs;
 		initialize();
 	}
-
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmOperator = new JFrame();
 		frmOperator.setTitle("Operator");
-		frmOperator.setBounds(100, 100, 450, 300);
+		frmOperator.setBounds(100, 100, 552, 367);
 		frmOperator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmOperator.getContentPane().setLayout(null);
-		
-		JList list = new JList();
-		list.setBounds(0, 0, 228, 262);
-		list.setFont(new Font("Serif", Font.PLAIN, 13));
+		lister = new DefaultListModel();
+		list = new JList<>(lister);
+		//jp = new JScrollPane(list);
+		list.setBounds(0, 25, 277, 259);
+		list.setFont(new Font("Serif", Font.BOLD, 13));
 		list.setForeground(Color.WHITE);
 		list.setBackground(Color.DARK_GRAY);
+		list.addListSelectionListener(new DocListener());
 		frmOperator.getContentPane().add(list);
-		
+		display();
 		JButton add = new JButton("Add");
-		add.setBounds(283, 52, 89, 23);
+		add.setBounds(0, 295, 89, 23);
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
@@ -85,25 +102,120 @@ public class Operator implements MaintainDocs {
 		frmOperator.getContentPane().add(add);
 		
 		JButton remove = new JButton("Remove");
-		remove.setBounds(283, 86, 89, 23);
+		remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < docs.size();i++){
+					if(docs.get(i).getName().equals(docName)){
+						remove(docName);
+					}
+				}
+			}
+		});
+		remove.setBounds(97, 295, 89, 23);
 		frmOperator.getContentPane().add(remove);
 		
 		JButton update = new JButton("Update");
-		update.setBounds(283, 120, 89, 23);
+		update.setBounds(196, 295, 82, 23);
 		frmOperator.getContentPane().add(update);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBackground(Color.WHITE);
+		scrollBar.setForeground(Color.WHITE);
+		scrollBar.setBounds(211, 27, 17, 235);
+		frmOperator.getContentPane().add(scrollBar);
+		
+		JLabel title = DefaultComponentFactory.getInstance().createLabel("Document List");
+		title.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		title.setBackground(Color.LIGHT_GRAY);
+		title.setForeground(Color.BLACK);
+		title.setBounds(0, 0, 130, 25);
+		frmOperator.getContentPane().add(title);
+		
+		JTextArea details = new JTextArea();
+		details.setFont(new Font("Serif", Font.BOLD, 13));
+		details.setForeground(Color.WHITE);
+		details.setBackground(Color.DARK_GRAY);
+		details.setBounds(287, 25, 239, 259);
+		frmOperator.getContentPane().add(details);
+		
+		JLabel det = DefaultComponentFactory.getInstance().createLabel("Details");
+		det.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		det.setForeground(Color.BLACK);
+		det.setBounds(287, 7, 92, 14);
+		frmOperator.getContentPane().add(det);
+		
+		JButton dets = new JButton("Details");
+		dets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < docs.size();i++){
+					Document doc = docs.get(i);
+					if(doc.getName().equals(docName)){
+						if(doc instanceof Book){
+							
+							details.setText("Title: " + ((Book)doc).getName()+ "\n");
+							details.append("Author Name: " + ((Book)doc).getAutName() + "\n");
+							details.append("Publish Date: " + ((Book)doc).getDate() + "\n");
+							details.append("ISBN: " + ((Book)doc).getIsbn() +"\n");
+							details.append("Publisher: " + ((Book)doc).getPublisherName() +"\n");
+							details.append("Price: " + ((Book)doc).getPrice() +"\n");
+						}
+						else if(doc instanceof Journal ){
+							
+							details.setText("Title: " + ((Journal)doc).getName()+ "\n");
+							details.append("Author Name: " + ((Journal)doc).getAutName() + "\n");
+							details.append("Publish Date: " + ((Journal)doc).getDate() + "\n");
+							details.append("ID: " + ((Journal)doc).getJournalId() +"\n");
+							details.append("Publisher: " + ((Journal)doc).getPublisher() +"\n");
+							details.append("Start Date: " + ((Journal)doc).getStartDate() +"\n");
+							details.append("Price: " + ((Journal)doc).getPrice() +"\n");
+						}
+						
+						else{
+							details.setText("Title: " + ((Magazine)doc).getName()+ "\n");
+							details.append("Author Name: " + ((Magazine)doc).getAutName() + "\n");
+							details.append("Publish Date: " + ((Magazine)doc).getDate() + "\n");
+							details.append("ID: " + ((Magazine)doc).getMagId() +"\n");
+							details.append("Company: " + ((Magazine)doc).getCompany() +"\n");
+							details.append("Price: " + ((Magazine)doc).getPrice() +"\n");
+						}
+					}
+				}
+			}
+		});
+		dets.setBounds(297, 295, 89, 23);
+		frmOperator.getContentPane().add(dets);
+		
+		JButton ret = new JButton("Return");
+		ret.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//man.setDoc(docs);
+				frmOperator.dispose();
+				man = new Management(docs);
+			}
+		});
+		ret.setBounds(396, 295, 89, 23);
+		frmOperator.getContentPane().add(ret);
 		frmOperator.setVisible(true);
 	}
 
-	@Override
-	public void add(Document doc) {
-		// TODO Auto-generated method stub
-		docs.add(doc);
-		
-	}
+//	@Override
+//	public void add(Document doc) {
+//		// TODO Auto-generated method stub
+//		docs.add(doc);
+//		
+//	}
 
 	@Override
-	public void remove(Document doc) {
+	public void remove(String name) {
 		// TODO Auto-generated method stub
+		for(int i = 0; i < docs.size();i++){
+			if(docs.get(i).getName().equals(name)){
+				docs.remove(docs.get(i));
+				JOptionPane.showMessageDialog(null, "Successfully Removed");
+				display();
+			}
+		}
 		
 	}
 
@@ -111,5 +223,20 @@ public class Operator implements MaintainDocs {
 	public void update(Document doc) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void display(){
+		lister.removeAllElements();
+		for(int i = 0; i < docs.size();i++){
+			lister.addElement(docs.get(i).getName());
+		}
+	}
+	class DocListener implements ListSelectionListener{
+
+		public void valueChanged(ListSelectionEvent arg0) {
+			// TODO Auto-generated method stub
+
+			docName = list.getSelectedValue();
+		}
+
 	}
 }

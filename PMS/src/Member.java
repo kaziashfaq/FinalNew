@@ -66,13 +66,13 @@ public class Member {
 				
 			}
 		});
-		btnSearchForA.setBounds(128, 52, 159, 42);
+		btnSearchForA.setBounds(349, 59, 159, 23);
 		btnSearchForA.setHorizontalAlignment(SwingConstants.TRAILING);
 
 		frmMember.getContentPane().add(btnSearchForA);
 		
 		JButton btnMakeAPayment = new JButton("Make a payment");
-		btnMakeAPayment.setBounds(128, 116, 159, 42);
+		btnMakeAPayment.setBounds(349, 93, 159, 23);
 		frmMember.getContentPane().add(btnMakeAPayment);
 		
 		JButton btnUns = new JButton("Unsubscribe");
@@ -80,7 +80,7 @@ public class Member {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnUns.setBounds(128, 180, 159, 42);
+		btnUns.setBounds(349, 127, 159, 23);
 		frmMember.getContentPane().add(btnUns);
 		
 		JLabel name = new JLabel("Hello, " + regBuy.getName());

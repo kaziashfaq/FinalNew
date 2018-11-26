@@ -18,36 +18,43 @@ public class Management implements Subject  {
 	private Vector<Document> documents;
 	//since database and login are not requirements we are using 3 members to begin with, in an actual program it will be automatic and the number will depend on the database
 	private Vector<RegisteredBuyer> buyers;
+	private Management man = null;
 	//private Vector<Observer> observers;
 
 	/**	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		Management management = new Management();
-		management.frmPms.setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		Management management = new Management();
+//		management.frmPms.setVisible(true);
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public Management() {
+	public Management(Vector<Document> docs) {
+		//man = this;
 		buyers = new Vector<RegisteredBuyer>();
+		documents = (Vector)docs.clone();
 		populateBuyers();
-		//System.out.println(buyers.size());
+		
+		//populateDocs();
+		
 		initialize();
 	}
-
+//	public void setDoc(Vector<Document> docs){
+//		documents = (Vector)docs.clone();
+//	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frmPms = new JFrame();
 		frmPms.getContentPane().setBackground(Color.DARK_GRAY);
 		frmPms.setTitle("PMS");
 		frmPms.setBounds(100, 100, 450, 300);
 		frmPms.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPms.getContentPane().setLayout(null);
-		
+		frmPms.setVisible(true);
 		JLabel lblNewJgoodiesTitle = DefaultComponentFactory.getInstance().createTitle("USE THE SYSTEM AS...");
 		lblNewJgoodiesTitle.setForeground(Color.WHITE);
 		lblNewJgoodiesTitle.setToolTipText("");
@@ -61,6 +68,7 @@ public class Management implements Subject  {
 			public void actionPerformed(ActionEvent e) {
 				frmPms.dispose();
 				Operator op = new Operator(documents);
+				
 			}
 		});
 		operator.setBounds(184, 68, 89, 23);
@@ -130,4 +138,6 @@ public class Management implements Subject  {
 		 buyers.add(b);
 	 }
 	}
+	
+	
 }
