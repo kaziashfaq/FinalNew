@@ -13,15 +13,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Management implements Subject  {
-	private Subject subject;
+	Subject subject;
 	private JFrame frmPms;
 	private Vector<Document> documents;
 	//since database and login are not requirements we are using 3 members to begin with, in an actual program it will be automatic and the number will depend on the database
 	private Vector<RegisteredBuyer> buyers;
 	private Management man = null;
-	private Vector<Document> cart;
-	private Vector<Document> vcart;
-	//private Vector<Observer> observers;
+	private Vector<Observer> observers;
+	private OrdinaryBuyer ob;
 
 	/**	 * Launch the application.
 	 */
@@ -34,7 +33,8 @@ public class Management implements Subject  {
 	 * Create the application.
 	 */
 	public Management(Vector<Document> docs) {
-		//man = this;
+		man = this;
+		observers = new Vector<Observer>();
 		buyers = new Vector<RegisteredBuyer>();
 		documents = (Vector)docs.clone();
 		populateBuyers();
@@ -83,13 +83,10 @@ public class Management implements Subject  {
 				//RegisteredBuyer buyer = new RegisteredBuyer(subject,name);
 				boolean found = false;
 				for(int i = 0; i < buyers.size();i++){
-					if(i == 1) {
-						buyers.get(i).setName("Yanzhao");
-					}
 					if(buyers.get(i).getName().equals(name)){
-						found = true;		
-						frmPms.dispose();
-						Member me = new Member(documents,cart,buyers.get(i));
+				found = true;		
+				frmPms.dispose();
+				Member me = new Member(documents,buyers.get(i),man);
 					}
 					
 			}
@@ -105,8 +102,11 @@ public class Management implements Subject  {
 		JButton visitor = new JButton("Visitor");
 		visitor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String name = JOptionPane.showInputDialog(null, "Enter your name?");
+				ob = new OrdinaryBuyer(subject,name);
 				frmPms.dispose();
-				Visitor vi = new Visitor(documents,vcart,buyers.get(0));
+				Visitor vi = new Visitor(documents,man,ob);
 				
 			}
 		});
@@ -115,9 +115,10 @@ public class Management implements Subject  {
 	}
 
 	@Override
-	public void register(Buyer o) {
+	public void register(Observer o) {
 		// TODO Auto-generated method stub
 		buyers.add((RegisteredBuyer) o);
+		observers.add(o);
 	}
 
 	@Override
@@ -132,7 +133,8 @@ public class Management implements Subject  {
 	@Override
 	public void remove(Observer o) {
 		// TODO Auto-generated method stub
-		buyers.remove(o);
+		buyers.remove((RegisteredBuyer)o);
+		observers.remove(o);
 	}
 
 	/*
@@ -140,8 +142,9 @@ public class Management implements Subject  {
 	 */
 	private void populateBuyers(){
 	 for(int i = 0; i < 3; i++){
-		 RegisteredBuyer b = new RegisteredBuyer(subject,("name" + Integer.toString(i)));
+		 RegisteredBuyer b = new RegisteredBuyer(subject,("name" + Integer.toString(i)),this);
 		 buyers.add(b);
+		 observers.add(b);
 	 }
 	}
 	

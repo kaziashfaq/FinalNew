@@ -23,8 +23,8 @@ public class Member {
 	private JFrame frmMember;
 	private Vector<Document> docs;
 	private RegisteredBuyer regBuy;
-	private Vector<Document> cart;
-	private Vector<Document> vcart;
+	
+	private Management man;
 	/**
 	 * Launch the application.
 	 */
@@ -43,12 +43,11 @@ public class Member {
 
 	/**
 	 * Create the application.
-	 * @param cart 
 	 */
-	public Member(Vector<Document> docs, Vector<Document> cart, RegisteredBuyer rb) {
-		this.cart = cart;
+	public Member(Vector<Document> docs, RegisteredBuyer rb,Management man) {
 		regBuy = rb;
 		this.docs = docs;
+		this.man = man;
 		initialize();
 	}
 
@@ -68,7 +67,7 @@ public class Member {
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMember.dispose();
-				Search se = new Search(docs,cart,regBuy);
+				Search se = new Search(docs,regBuy,man);
 				
 			}
 		});
@@ -78,20 +77,19 @@ public class Member {
 		frmMember.getContentPane().add(btnSearchForA);
 		
 		JButton btnMakeAPayment = new JButton("Make a payment");
-		btnMakeAPayment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmMember.dispose();
-				MOrder mo = new MOrder(docs,cart,regBuy);
-			}
-		});
 		btnMakeAPayment.setBounds(349, 123, 179, 23);
 		frmMember.getContentPane().add(btnMakeAPayment);
 		
 		JButton btnUns = new JButton("Unsubscribe");
 		btnUns.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//frmMember.dispose();
+				//Visitor vi = new Visitor(docs, regBuy);
+				regBuy.unsubscribe();
+				JOptionPane.showMessageDialog(null, "You are successfully unsubscribed");
 				frmMember.dispose();
-				Visitor vi = new Visitor(docs,vcart,regBuy);
+				
+				man.initialize();
 			}
 		});
 		btnUns.setBounds(349, 175, 179, 23);

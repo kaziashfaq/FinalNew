@@ -77,7 +77,7 @@ public class Operator implements MaintainDocs {
 		frmOperator.getContentPane().add(list);
 		display();
 		JButton add = new JButton("Add");
-		add.setBounds(0, 295, 89, 23);
+		add.setBounds(10, 295, 89, 23);
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
@@ -111,17 +111,21 @@ public class Operator implements MaintainDocs {
 				}
 			}
 		});
-		remove.setBounds(97, 295, 89, 23);
+		remove.setBounds(121, 295, 89, 23);
 		frmOperator.getContentPane().add(remove);
 		
 		JButton update = new JButton("Update");
 		update.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				update(docName);
-				
+				for(int i = 0; i < docs.size();i++){
+					if(docs.get(i).getName().equals(docName)){
+						
+						update(docName);
+					}
+				}
 			}
 		});
-		update.setBounds(196, 295, 82, 23);
+		update.setBounds(232, 295, 82, 23);
 		frmOperator.getContentPane().add(update);
 		
 		JScrollBar scrollBar = new JScrollBar();
@@ -188,7 +192,7 @@ public class Operator implements MaintainDocs {
 				}
 			}
 		});
-		dets.setBounds(297, 295, 89, 23);
+		dets.setBounds(338, 295, 89, 23);
 		frmOperator.getContentPane().add(dets);
 		
 		JButton ret = new JButton("Return");
@@ -200,7 +204,7 @@ public class Operator implements MaintainDocs {
 				man = new Management(docs);
 			}
 		});
-		ret.setBounds(396, 295, 89, 23);
+		ret.setBounds(437, 295, 89, 23);
 		frmOperator.getContentPane().add(ret);
 		frmOperator.setVisible(true);
 	}
@@ -227,19 +231,17 @@ public class Operator implements MaintainDocs {
 
 	@Override
 	public void update(String name) {
-		
-		
 		frmOperator.dispose();
 	for(int i = 0; i < docs.size();i++){
 		if(docs.get(i).getName().equals(name)){
 			if(docs.get(i) instanceof Book){
-		UpdateBook ub = new UpdateBook(docs, name, i);
+				UpdateBook ub = new UpdateBook(docs,name);
 			}
 			else if(docs.get(i) instanceof Journal){
-				UpdateJournal uj = new UpdateJournal(docs, name, i);
+				UpdateJournal uj = new UpdateJournal(docs,name);
 			}
-			else if(docs.get(i) instanceof Magazine) {
-				UpdateMagazine um = new UpdateMagazine(docs, name, i);
+			else{
+				UpdateMagazine um = new UpdateMagazine(docs,name);
 			}
 		}
 	}

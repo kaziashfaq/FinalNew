@@ -16,9 +16,8 @@ public class Visitor {
 
 	private JFrame frmVisitor;
 	private Vector<Document> docs;
-	private RegisteredBuyer regBuy;
-	private Vector<Document> vcart;
-
+	private OrdinaryBuyer ob;
+	private Management man;
 	/**
 	 * Launch the application.
 	 */
@@ -39,10 +38,10 @@ public class Visitor {
 	/**
 	 * Create the application.
 	 */
-	public Visitor(Vector<Document> docs, Vector<Document> vcart, RegisteredBuyer regBuy) {
-		this.vcart = vcart;
-		this.regBuy = regBuy;
+	public Visitor(Vector<Document> docs,Management man,OrdinaryBuyer ob) {
+		this.ob = ob;
 		this.docs = docs;
+		this.man = man;
 		initialize();
 	}
 
@@ -59,7 +58,7 @@ public class Visitor {
 		frmVisitor.getContentPane().setLayout(null);
 		frmVisitor.setVisible(true);
 		
-		JLabel lblHelloVistor = new JLabel("Hello, Vistor");
+		JLabel lblHelloVistor = new JLabel("Hello," + ob.getName());
 		lblHelloVistor.setForeground(Color.WHITE);
 		lblHelloVistor.setBounds(196, 21, 113, 15);
 		frmVisitor.getContentPane().add(lblHelloVistor);
@@ -68,32 +67,23 @@ public class Visitor {
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmVisitor.dispose();
-				VisitorSearch vs = new VisitorSearch(docs,regBuy);
+				Search vs = new Search(docs,ob,man);
 			}
 		});
-		btnSearchForA.setBounds(250, 56, 170, 32);
+		btnSearchForA.setBounds(153, 76, 170, 32);
 		frmVisitor.getContentPane().add(btnSearchForA);
-		
-		JButton btnMakeAPayment = new JButton("Make a payment");
-		btnMakeAPayment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmVisitor.dispose();
-				Order or = new Order(docs,vcart,regBuy);
-			}
-		});
-		btnMakeAPayment.setBounds(250, 112, 170, 32);
-		frmVisitor.getContentPane().add(btnMakeAPayment);
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = JOptionPane.showInputDialog("What is the your's name?");
-					regBuy.setName(name);
-					frmVisitor.dispose();
-					Member me = new Member(docs, vcart, regBuy);
+			    RegisteredBuyer rb = new RegisteredBuyer(ob.subject,ob.getName(),man);
+				man.register(rb);
+				JOptionPane.showMessageDialog(null, "You are successfully registered");
+				frmVisitor.dispose();
+				man.initialize();
 				}
 		});
-		btnRegister.setBounds(250, 165, 170, 32);
+		btnRegister.setBounds(153, 126, 170, 32);
 		frmVisitor.getContentPane().add(btnRegister);
 		
 		JButton btnNewButton = new JButton("Return");
@@ -104,7 +94,7 @@ public class Visitor {
 				
 			}
 		});
-		btnNewButton.setBounds(250, 220, 170, 32);
+		btnNewButton.setBounds(153, 180, 170, 32);
 		frmVisitor.getContentPane().add(btnNewButton);
 	}
 }
