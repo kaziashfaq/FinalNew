@@ -81,13 +81,10 @@ public class Management implements Subject  {
 				//RegisteredBuyer buyer = new RegisteredBuyer(subject,name);
 				boolean found = false;
 				for(int i = 0; i < buyers.size();i++){
-					if(i == 1) {
-						buyers.get(i).setName("Yanzhao");
-					}
 					if(buyers.get(i).getName().equals(name)){
-						found = true;		
-						frmPms.dispose();
-						Member me = new Member(documents,buyers.get(i));
+				found = true;		
+				frmPms.dispose();
+				Member me = new Member(documents,buyers.get(i));
 					}
 					
 			}

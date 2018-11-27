@@ -119,6 +119,7 @@ public class Operator implements MaintainDocs {
 			public void actionPerformed(ActionEvent e) {
 				for(int i = 0; i < docs.size();i++){
 					if(docs.get(i).getName().equals(docName)){
+						
 						update(docName);
 					}
 				}
@@ -230,28 +231,8 @@ public class Operator implements MaintainDocs {
 
 	@Override
 	public void update(String name) {
-		for(int i = 0; i < docs.size(); i++) {
-			if(docs.get(i).getName().equals(name)) {
-				docs.remove(docs.get(i));
-				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
-				if(type.equals("Book")){
-					frmOperator.dispose();
-					AddBook ab = new AddBook(docs);
-				}
-				else if(type.equals("Journal")){
-					frmOperator.dispose();
-					AddJournal aj = new AddJournal(docs);
-				}
-				else if(type.equals("Magazine")){
-					frmOperator.dispose();
-					AddMagazine am = new AddMagazine(docs);
-				}
-				else
-				{
-				JOptionPane.showMessageDialog(null, "Invalid input, please follow the instruction");	
-				}
-			}
-		}
+		frmOperator.dispose();
+		UpdateBook ub = new UpdateBook(docs,name);
 	}
 	public void display(){
 		lister.removeAllElements();
