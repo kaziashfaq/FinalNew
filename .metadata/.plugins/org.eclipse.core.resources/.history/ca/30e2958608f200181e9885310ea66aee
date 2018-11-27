@@ -5,14 +5,13 @@ public class Payment{
 	int cardNo;
 	String cardType;
 	double totalPay;
-	Buyer buyer;
 	
-	Payment(Order order, int card, String type,Buyer regBuy){
+	
+	Payment(Order order, int card, String type){
 		this.order = order;
 		cardNo = card;
 		cardType = type;
 		totalPay = 0;
-		buyer = regBuy;
 	}
 
 	public double getTotalPay() {
@@ -44,11 +43,6 @@ public class Payment{
 		for(int i =0; i< order.getDocs().size();i++){
 			totalPay += order.getDocs().get(i).getPrice();
 		}
-		if(buyer instanceof RegisteredBuyer){
-		return totalPay * 0.80;
-		}
-		else{
-			return totalPay;
-		}
+		return totalPay;
 	}
 }

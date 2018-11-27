@@ -259,7 +259,7 @@ public class Search {
 			public void actionPerformed(ActionEvent e) {
 				String type = JOptionPane.showInputDialog("Enter your card type");
 				int card = Integer.parseInt(JOptionPane.showInputDialog("Enter your card number"));
-				Payment pay = new Payment(order,card,type,regBuy);
+				Payment pay = new Payment(order,card,type);
 				frmSearch.dispose();
 				PaymentReview pr = new PaymentReview(pay);
 				

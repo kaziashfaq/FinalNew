@@ -44,11 +44,6 @@ public class Payment{
 		for(int i =0; i< order.getDocs().size();i++){
 			totalPay += order.getDocs().get(i).getPrice();
 		}
-		if(buyer instanceof RegisteredBuyer){
-		return totalPay * 0.80;
-		}
-		else{
-			return totalPay;
-		}
+		return totalPay;
 	}
 }

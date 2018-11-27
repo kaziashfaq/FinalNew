@@ -47,8 +47,5 @@ public class Payment{
 		if(buyer instanceof RegisteredBuyer){
 		return totalPay * 0.80;
 		}
-		else{
-			return totalPay;
-		}
 	}
 }
