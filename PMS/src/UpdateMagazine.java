@@ -16,38 +16,26 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public class UpdateMagazine {
 
 	private JFrame frmUpdate;
-	private Vector<Document> docs;
+	private Vector<Document>docs;
 	private Magazine doc;
 	private String title;
-	private JTextField mName;
+	private JTextField bkName;
 	private JTextField aName;
-	private JTextField magId;
-	private JTextField company;
+	private JTextField isbnNum;
+	private JTextField publisher;
 	private JTextField date;
-	private JTextField priceDoc;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					UpdateMagazine window = new UpdateMagazine();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private JTextField docPrice;
+
+	private int index;
 
 	/**
 	 * Create the application.
 	 */
-	public UpdateMagazine(Vector<Document>docs, String name) {
+	public UpdateMagazine(Vector<Document>docs, String name, int index) {
 		this.docs = (Vector)docs.clone();
 		title = name;
 		doc = (Magazine)getDoc(title);
+		this.index = index;
 		initialize();
 	}
 	public Document getDoc(String n){
@@ -58,7 +46,6 @@ public class UpdateMagazine {
 		}
 		return null;
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -66,14 +53,14 @@ public class UpdateMagazine {
 		frmUpdate = new JFrame();
 		frmUpdate.getContentPane().setBackground(Color.DARK_GRAY);
 		frmUpdate.setTitle("Update");
-		frmUpdate.setBounds(100, 100, 543, 344);
+		frmUpdate.setBounds(100, 100, 511, 374);
 		frmUpdate.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUpdate.getContentPane().setLayout(null);
 		
 		JLabel bName = new JLabel("Magazine Name");
 		bName.setFont(new Font("Tahoma", Font.BOLD, 14));
 		bName.setForeground(Color.WHITE);
-		bName.setBounds(45, 42, 133, 14);
+		bName.setBounds(45, 42, 94, 14);
 		frmUpdate.getContentPane().add(bName);
 		
 		JLabel autName = new JLabel("Author Name");
@@ -82,13 +69,13 @@ public class UpdateMagazine {
 		autName.setBounds(45, 79, 115, 14);
 		frmUpdate.getContentPane().add(autName);
 		
-		JLabel isbn = new JLabel("ID");
+		JLabel isbn = new JLabel("Mag ID");
 		isbn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		isbn.setForeground(Color.WHITE);
 		isbn.setBounds(47, 112, 46, 14);
 		frmUpdate.getContentPane().add(isbn);
 		
-		JLabel pubName = new JLabel("Company Name");
+		JLabel pubName = new JLabel("Company");
 		pubName.setFont(new Font("Tahoma", Font.BOLD, 14));
 		pubName.setForeground(Color.WHITE);
 		pubName.setBounds(45, 143, 115, 14);
@@ -99,57 +86,68 @@ public class UpdateMagazine {
 		pubDate.setFont(new Font("Tahoma", Font.BOLD, 14));
 		pubDate.setBounds(45, 176, 104, 14);
 		frmUpdate.getContentPane().add(pubDate);
+			
 		
-		mName = new JTextField();
-		mName.setBounds(205, 41, 200, 20);
-		frmUpdate.getContentPane().add(mName);
-		mName.setColumns(10);
-		mName.setText(doc.getName());
+		bkName = new JTextField();
+		bkName.setBounds(164, 41, 200, 20);
+		frmUpdate.getContentPane().add(bkName);
+		bkName.setColumns(10);
+		bkName.setText(doc.getName());
 		
 		aName = new JTextField();
-		aName.setBounds(205, 78, 200, 20);
+		aName.setBounds(164, 78, 200, 20);
 		frmUpdate.getContentPane().add(aName);
 		aName.setColumns(10);
 		aName.setText(doc.getAutName());
 		
-		magId = new JTextField();
-		magId.setBounds(205, 111, 200, 20);
-		frmUpdate.getContentPane().add(magId);
-		magId.setColumns(10);
-		magId.setText(Integer.toString(doc.getMagId()));
+		isbnNum = new JTextField();
+		isbnNum.setBounds(164, 111, 200, 20);
+		frmUpdate.getContentPane().add(isbnNum);
+		isbnNum.setColumns(10);
+		isbnNum.setText(Integer.toString(doc.getMagId()));
 		
-		company = new JTextField();
-		company.setBounds(205, 142, 200, 20);
-		frmUpdate.getContentPane().add(company);
-		company.setColumns(10);
-		company.setText(doc.getCompany());
+		publisher = new JTextField();
+		publisher.setBounds(164, 142, 200, 20);
+		frmUpdate.getContentPane().add(publisher);
+		publisher.setColumns(10);
+		publisher.setText(doc.getCompany());
+		
 		date = new JTextField();
-		date.setBounds(205, 175, 200, 20);
+		date.setBounds(164, 175, 200, 20);
 		frmUpdate.getContentPane().add(date);
 		date.setColumns(10);
 		date.setText(doc.getDate());
-		priceDoc = new JTextField();
-		priceDoc.setBounds(205, 206, 200, 20);
-		frmUpdate.getContentPane().add(priceDoc);
-		priceDoc.setColumns(10);
-		priceDoc.setText(Integer.toString(doc.getPrice()));
+		
+		docPrice = new JTextField();
+		docPrice.setBounds(164, 207, 200, 20);
+		frmUpdate.getContentPane().add(docPrice);
+		docPrice.setColumns(10);
+		docPrice.setText(Integer.toString(doc.getPrice()));
+		
 		JButton add = new JButton("Update");
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = mName.getText();
+				String name = bkName.getText();
 				String author = aName.getText();
 				String pDate = date.getText();
-				int num = Integer.parseInt((magId.getText()));
-				String pubN= company.getText();
-				int price = Integer.parseInt((priceDoc.getText()));
-				Magazine m = new Magazine(name, author,pDate,price,num,pubN);
-				docs.remove(doc);
-				docs.add(m);
+				int num = Integer.parseInt((isbnNum.getText()));
+				String pubN= publisher.getText();
+				int price = Integer.parseInt((docPrice.getText()));
+				
+				Magazine b = (Magazine)docs.get(index);
+				
+				b.setName(name);
+				b.setAuthorName(author);
+				b.setMagId(num);
+				b.setPrice(price);
+				b.setPublishDate(pDate);
+				b.setCompany(pubN);
+				System.out.println("cheng");
 				JOptionPane.showMessageDialog(null, "Successfully Updated");
 				
 			}
 		});
-		add.setBounds(316, 255, 89, 23);
+		add.setBounds(280, 254, 89, 23);
 		frmUpdate.getContentPane().add(add);
 		
 		JButton back = new JButton("Return");
@@ -159,17 +157,18 @@ public class UpdateMagazine {
 				Operator op = new Operator(docs);
 			}
 		});
-		back.setBounds(217, 255, 89, 23);
+		back.setBounds(181, 254, 89, 23);
 		frmUpdate.getContentPane().add(back);
 		
-		JLabel pr = DefaultComponentFactory.getInstance().createLabel("Price");
-		pr.setFont(new Font("Tahoma", Font.BOLD, 14));
-		pr.setForeground(Color.WHITE);
-		pr.setBounds(45, 211, 92, 14);
-		frmUpdate.getContentPane().add(pr);
+		JLabel price = DefaultComponentFactory.getInstance().createLabel("Price");
+		price.setFont(new Font("Tahoma", Font.BOLD, 14));
+		price.setForeground(Color.WHITE);
+		price.setBounds(47, 208, 92, 14);
+		frmUpdate.getContentPane().add(price);
 		
 		
 		frmUpdate.setVisible(true);
 	}
+	}
 
-}
+

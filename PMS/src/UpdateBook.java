@@ -25,29 +25,17 @@ public class UpdateBook {
 	private JTextField publisher;
 	private JTextField date;
 	private JTextField docPrice;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					UpdateBook window = new UpdateBook();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+
+	private int index;
 
 	/**
 	 * Create the application.
 	 */
-	public UpdateBook(Vector<Document>docs, String name) {
+	public UpdateBook(Vector<Document>docs, String name, int index) {
 		this.docs = (Vector)docs.clone();
 		title = name;
 		doc = (Book)getDoc(title);
+		this.index = index;
 		initialize();
 	}
 	public Document getDoc(String n){
@@ -144,9 +132,16 @@ public class UpdateBook {
 				int num = Integer.parseInt((isbnNum.getText()));
 				String pubN= publisher.getText();
 				int price = Integer.parseInt((docPrice.getText()));
-				Book b = new Book(name, author,pDate,price,num,pubN);
-				docs.remove(doc);
-				docs.add(b);
+				
+				Book b = (Book)docs.get(index);
+				
+				b.setName(name);
+				b.setAuthorName(author);
+				b.setIsbn(num);
+				b.setPrice(price);
+				b.setPublishDate(pDate);
+				b.setPublisherName(pubN);
+				System.out.println("cheng");
 				JOptionPane.showMessageDialog(null, "Successfully Updated");
 				
 			}
