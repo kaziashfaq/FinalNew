@@ -24,6 +24,7 @@ public class Search {
 	private JFrame frmSearch;
 	private JList<String> list;
 	private Vector<Document> docs;
+	private Vector<Document> cart;
 	private DefaultListModel<String> lister;
 	private String docName;
 	private RegisteredBuyer regBuy;
@@ -47,7 +48,8 @@ public class Search {
 	/**
 	 * Create the application.
 	 */
-	public Search(Vector<Document> docs,RegisteredBuyer regBuy) {
+	public Search(Vector<Document> docs,Vector<Document> cart,RegisteredBuyer regBuy) {
+		this.cart = cart;
 		this.regBuy = regBuy;
 		this.docs = docs;
 		initialize();
@@ -145,7 +147,7 @@ public class Search {
 		ret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmSearch.dispose();
-				Member me = new Member(docs,regBuy);
+				Member me = new Member(docs,cart,regBuy);
 			}
 		});
 		ret.setBounds(481, 311, 89, 23);
@@ -199,6 +201,22 @@ public class Search {
 		frmSearch.getContentPane().add(btnSearch);
 		
 		JButton btnAddToShopping = new JButton("Add to shopping cart");
+		btnAddToShopping.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < docs.size();i++){
+					Document doc = docs.get(i);
+					if(doc.getName().equals(docName)){
+						String name = doc.getName();
+						String author = doc.getAutName();
+						String pDate = doc.getDate();
+						int price = doc.getPrice();
+						Document b = new Document(name, author,pDate,price);
+						cart.add(b);
+						//cart.add(doc);
+					}
+				}
+			}
+		});
 		btnAddToShopping.setBounds(287, 311, 157, 23);
 		frmSearch.getContentPane().add(btnAddToShopping);
 		frmSearch.setVisible(true);

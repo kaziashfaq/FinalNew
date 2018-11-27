@@ -24,9 +24,11 @@ public class VisitorSearch {
 	private JFrame frmSearch;
 	private JList<String> list;
 	private Vector<Document> docs;
+	//private Vector<Document> cart;
 	private DefaultListModel<String> lister;
 	private String docName;
 	private RegisteredBuyer regBuy;
+	private Vector<Document> vcart;
 
 
 	/**
@@ -146,7 +148,7 @@ public class VisitorSearch {
 		ret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmSearch.dispose();
-				Visitor vi = new Visitor(docs,regBuy);
+				Visitor vi = new Visitor(docs,vcart,regBuy);
 			}
 		});
 		ret.setBounds(481, 311, 89, 23);
@@ -160,9 +162,11 @@ public class VisitorSearch {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = JOptionPane.showInputDialog("What is the document's name?");
+				int find = 0;
 				for(int i = 0; i < docs.size(); i++) {
 					Document doc = docs.get(i);
 					if(doc.getName().equals(name)){
+						find = 1;
 						if(doc instanceof Book){
 							
 							details.setText("Title: " + ((Book)doc).getName()+ "\n");
@@ -193,15 +197,32 @@ public class VisitorSearch {
 						}
 					}
 				}
+				if (find == 0) {
+					JOptionPane.showMessageDialog(null, "The document does not exist, please try again");
 				}
-			
+			}
 		});
 		btnSearch.setBounds(37, 311, 93, 23);
 		frmSearch.getContentPane().add(btnSearch);
 		
-		JButton btnAddToShopping = new JButton("Add to shopping cart");
-		btnAddToShopping.setBounds(287, 311, 157, 23);
-		frmSearch.getContentPane().add(btnAddToShopping);
+		JButton btnNewButton = new JButton("Add to shopping cart");
+		btnNewButton.setBounds(299, 311, 153, 23);
+		frmSearch.getContentPane().add(btnNewButton);
+		
+//		JButton btnAddToShopping = new JButton("Add to shopping cart");
+//		btnAddToShopping.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				for(int i = 0; i < docs.size(); i++) {
+//					Document d = docs.get(i);
+//					if(d.getName().equals(docName)) {
+//						cart.add(d);
+//						JOptionPane.showMessageDialog(null, "Added into shoppingcart");
+//					}
+//				}
+//			}
+//		});
+//		btnAddToShopping.setBounds(287, 311, 157, 23);
+//		frmSearch.getContentPane().add(btnAddToShopping);
 		frmSearch.setVisible(true);
 	}
 

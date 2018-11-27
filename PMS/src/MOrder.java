@@ -18,9 +18,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Order {
+public class MOrder {
 
-	private JFrame frame;
+	private JFrame frmMemberShoppingCart;
 
 	/**
 	 * Launch the application.
@@ -56,7 +56,7 @@ public class Order {
 	 * @param cart 
 	 * @param docs 
 	 */
-	public Order(Vector<Document> docs,Vector<Document> cart, RegisteredBuyer regBuy) {
+	public MOrder(Vector<Document> docs,Vector<Document> cart, RegisteredBuyer regBuy) {
 		this.regBuy = regBuy;
 		this.cart = cart;
 		this.docs = docs;
@@ -67,12 +67,12 @@ public class Order {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Visitor shopping cart");
-		frame.getContentPane().setBackground(Color.GRAY);
-		frame.setBounds(100, 100, 591, 561);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmMemberShoppingCart = new JFrame();
+		frmMemberShoppingCart.setTitle("Member shopping cart");
+		frmMemberShoppingCart.getContentPane().setBackground(Color.GRAY);
+		frmMemberShoppingCart.setBounds(100, 100, 591, 561);
+		frmMemberShoppingCart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMemberShoppingCart.getContentPane().setLayout(null);
 		
 		lister = new DefaultListModel();
 		list = new JList<>(lister);
@@ -81,14 +81,14 @@ public class Order {
 		list.setForeground(Color.WHITE);
 		list.setBackground(Color.DARK_GRAY);
 		list.addListSelectionListener(new DocListener());
-		frame.getContentPane().add(list);
+		frmMemberShoppingCart.getContentPane().add(list);
 		display();
 		
 		JLabel lblShoppingCart = new JLabel("Shopping cart");
 		lblShoppingCart.setForeground(Color.WHITE);
 		lblShoppingCart.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblShoppingCart.setBounds(20, 10, 123, 25);
-		frame.getContentPane().add(lblShoppingCart);
+		frmMemberShoppingCart.getContentPane().add(lblShoppingCart);
 		
 		JButton btnAddItem = new JButton("Add item");
 		btnAddItem.addActionListener(new ActionListener() {
@@ -104,7 +104,7 @@ public class Order {
 			}
 		});
 		btnAddItem.setBounds(391, 100, 117, 31);
-		frame.getContentPane().add(btnAddItem);
+		frmMemberShoppingCart.getContentPane().add(btnAddItem);
 		
 		JButton btnRemove = new JButton("Remove");
 		btnRemove.addActionListener(new ActionListener() {
@@ -117,29 +117,29 @@ public class Order {
 			}
 		});
 		btnRemove.setBounds(391, 176, 117, 31);
-		frame.getContentPane().add(btnRemove);
+		frmMemberShoppingCart.getContentPane().add(btnRemove);
 		
 		JButton btnPlaceOrder = new JButton("Place order");
 		btnPlaceOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				VisitorPay mp = new VisitorPay(docs, cart,regBuy);
+				frmMemberShoppingCart.dispose();
+				MemberPay mp = new MemberPay(docs, cart, regBuy);
 			}
 		});
 		btnPlaceOrder.setBounds(391, 254, 117, 31);
-		frame.getContentPane().add(btnPlaceOrder);
+		frmMemberShoppingCart.getContentPane().add(btnPlaceOrder);
 		
 		JButton btnNewButton = new JButton("Return");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				Visitor vi = new Visitor(docs,cart,regBuy);
+				frmMemberShoppingCart.dispose();
+				Member me = new Member(docs,cart, regBuy);
 				
 			}
 		});
 		btnNewButton.setBounds(391, 326, 117, 31);
-		frame.getContentPane().add(btnNewButton);
-		frame.setVisible(true);
+		frmMemberShoppingCart.getContentPane().add(btnNewButton);
+		frmMemberShoppingCart.setVisible(true);
 	}
 
 

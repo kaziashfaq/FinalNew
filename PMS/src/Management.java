@@ -19,6 +19,8 @@ public class Management implements Subject  {
 	//since database and login are not requirements we are using 3 members to begin with, in an actual program it will be automatic and the number will depend on the database
 	private Vector<RegisteredBuyer> buyers;
 	private Management man = null;
+	private Vector<Document> cart;
+	private Vector<Document> vcart;
 	//private Vector<Observer> observers;
 
 	/**	 * Launch the application.
@@ -81,10 +83,13 @@ public class Management implements Subject  {
 				//RegisteredBuyer buyer = new RegisteredBuyer(subject,name);
 				boolean found = false;
 				for(int i = 0; i < buyers.size();i++){
+					if(i == 1) {
+						buyers.get(i).setName("Yanzhao");
+					}
 					if(buyers.get(i).getName().equals(name)){
-				found = true;		
-				frmPms.dispose();
-				Member me = new Member(documents,buyers.get(i));
+						found = true;		
+						frmPms.dispose();
+						Member me = new Member(documents,cart,buyers.get(i));
 					}
 					
 			}
@@ -101,9 +106,8 @@ public class Management implements Subject  {
 		visitor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmPms.dispose();
-				for(int i = 0; i < buyers.size();i++) {
-					Visitor vi = new Visitor(documents,buyers.get(i));
-				}
+				Visitor vi = new Visitor(documents,vcart,buyers.get(0));
+				
 			}
 		});
 		visitor.setBounds(184, 138, 89, 23);

@@ -17,6 +17,7 @@ public class Visitor {
 	private JFrame frmVisitor;
 	private Vector<Document> docs;
 	private RegisteredBuyer regBuy;
+	private Vector<Document> vcart;
 
 	/**
 	 * Launch the application.
@@ -38,7 +39,8 @@ public class Visitor {
 	/**
 	 * Create the application.
 	 */
-	public Visitor(Vector<Document> docs,RegisteredBuyer regBuy) {
+	public Visitor(Vector<Document> docs, Vector<Document> vcart, RegisteredBuyer regBuy) {
+		this.vcart = vcart;
 		this.regBuy = regBuy;
 		this.docs = docs;
 		initialize();
@@ -73,6 +75,12 @@ public class Visitor {
 		frmVisitor.getContentPane().add(btnSearchForA);
 		
 		JButton btnMakeAPayment = new JButton("Make a payment");
+		btnMakeAPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmVisitor.dispose();
+				Order or = new Order(docs,vcart,regBuy);
+			}
+		});
 		btnMakeAPayment.setBounds(250, 112, 170, 32);
 		frmVisitor.getContentPane().add(btnMakeAPayment);
 		
@@ -82,7 +90,7 @@ public class Visitor {
 				String name = JOptionPane.showInputDialog("What is the your's name?");
 					regBuy.setName(name);
 					frmVisitor.dispose();
-					Member me = new Member(docs, regBuy);
+					Member me = new Member(docs, vcart, regBuy);
 				}
 		});
 		btnRegister.setBounds(250, 165, 170, 32);

@@ -5,5 +5,4 @@ public class Payment{
 	int cardNo;
 	String cardType;
 	
-
 }

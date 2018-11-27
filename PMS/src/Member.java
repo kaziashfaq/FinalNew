@@ -23,6 +23,8 @@ public class Member {
 	private JFrame frmMember;
 	private Vector<Document> docs;
 	private RegisteredBuyer regBuy;
+	private Vector<Document> cart;
+	private Vector<Document> vcart;
 	/**
 	 * Launch the application.
 	 */
@@ -41,8 +43,10 @@ public class Member {
 
 	/**
 	 * Create the application.
+	 * @param cart 
 	 */
-	public Member(Vector<Document> docs, RegisteredBuyer rb) {
+	public Member(Vector<Document> docs, Vector<Document> cart, RegisteredBuyer rb) {
+		this.cart = cart;
 		regBuy = rb;
 		this.docs = docs;
 		initialize();
@@ -64,7 +68,7 @@ public class Member {
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMember.dispose();
-				Search se = new Search(docs,regBuy);
+				Search se = new Search(docs,cart,regBuy);
 				
 			}
 		});
@@ -74,6 +78,12 @@ public class Member {
 		frmMember.getContentPane().add(btnSearchForA);
 		
 		JButton btnMakeAPayment = new JButton("Make a payment");
+		btnMakeAPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMember.dispose();
+				MOrder mo = new MOrder(docs,cart,regBuy);
+			}
+		});
 		btnMakeAPayment.setBounds(349, 123, 179, 23);
 		frmMember.getContentPane().add(btnMakeAPayment);
 		
@@ -81,7 +91,7 @@ public class Member {
 		btnUns.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMember.dispose();
-				Visitor vi = new Visitor(docs, regBuy);
+				Visitor vi = new Visitor(docs,vcart,regBuy);
 			}
 		});
 		btnUns.setBounds(349, 175, 179, 23);
