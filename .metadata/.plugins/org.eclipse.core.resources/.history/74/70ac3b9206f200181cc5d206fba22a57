@@ -61,7 +61,7 @@ public class Start {
 		frmWelcomeToPms.setBounds(100, 100, 450, 300);
 		frmWelcomeToPms.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWelcomeToPms.getContentPane().setLayout(null);
-		frmWelcomeToPms.setVisible(true);
+		
 		JButton start = new JButton("Start");
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

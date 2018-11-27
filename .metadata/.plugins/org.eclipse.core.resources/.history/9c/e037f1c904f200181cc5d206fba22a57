@@ -15,7 +15,6 @@ public class Payment{
 	}
 
 	public double getTotalPay() {
-		totalPay = calculatePayment();
 		return totalPay;
 	}
 
