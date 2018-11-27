@@ -25,6 +25,7 @@ public class Member {
 	private RegisteredBuyer regBuy;
 	
 	private Management man;
+	private Order order;
 	/**
 	 * Launch the application.
 	 */
@@ -48,6 +49,7 @@ public class Member {
 		regBuy = rb;
 		this.docs = docs;
 		this.man = man;
+		order = new Order();
 		initialize();
 	}
 
@@ -67,18 +69,14 @@ public class Member {
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMember.dispose();
-				Search se = new Search(docs,regBuy,man);
+				Search se = new Search(docs,regBuy,man,order);
 				
 			}
 		});
-		btnSearchForA.setBounds(349, 72, 179, 23);
+		btnSearchForA.setBounds(348, 72, 195, 33);
 		btnSearchForA.setHorizontalAlignment(SwingConstants.TRAILING);
 
 		frmMember.getContentPane().add(btnSearchForA);
-		
-		JButton btnMakeAPayment = new JButton("Make a payment");
-		btnMakeAPayment.setBounds(349, 123, 179, 23);
-		frmMember.getContentPane().add(btnMakeAPayment);
 		
 		JButton btnUns = new JButton("Unsubscribe");
 		btnUns.addActionListener(new ActionListener() {
@@ -92,7 +90,7 @@ public class Member {
 				man.initialize();
 			}
 		});
-		btnUns.setBounds(349, 175, 179, 23);
+		btnUns.setBounds(348, 116, 195, 33);
 		frmMember.getContentPane().add(btnUns);
 		
 		JLabel name = new JLabel("Hello, " + regBuy.getName());
@@ -109,12 +107,14 @@ public class Member {
 				
 			}
 		});
-		btnReturn.setBounds(349, 276, 179, 23);
+		btnReturn.setBounds(348, 207, 195, 33);
 		frmMember.getContentPane().add(btnReturn);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 15));
+		textArea.setForeground(new Color(0, 0, 0));
 		textArea.setBackground(Color.LIGHT_GRAY);
-		textArea.setBounds(10, 24, 293, 305);
+		textArea.setBounds(0, 35, 303, 333);
 		frmMember.getContentPane().add(textArea);
 		
 		JButton btnNewButton = new JButton("View promotion");
@@ -127,7 +127,13 @@ public class Member {
 
 			}
 		});
-		btnNewButton.setBounds(349, 227, 179, 23);
+		btnNewButton.setBounds(348, 160, 195, 33);
 		frmMember.getContentPane().add(btnNewButton);
+		
+		JLabel promotion = new JLabel("Promotion List");
+		promotion.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		promotion.setForeground(Color.WHITE);
+		promotion.setBounds(10, 0, 141, 35);
+		frmMember.getContentPane().add(promotion);
 	}
 }

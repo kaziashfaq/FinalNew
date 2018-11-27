@@ -23,11 +23,14 @@ public class Search {
 
 	private JFrame frmSearch;
 	private JList<String> list;
+	private JList<String>orderList;
 	private Vector<Document> docs;
 	private DefaultListModel<String> lister;
+	private DefaultListModel<String> orderLister;
 	private String docName;
 	private Buyer regBuy;
 	private Management man;
+	private Order order;
 
 	/**
 	 * Launch the application.
@@ -48,10 +51,11 @@ public class Search {
 	/**
 	 * Create the application.
 	 */
-	public Search(Vector<Document> docs,Buyer regBuy,Management man) {
+	public Search(Vector<Document> docs,Buyer regBuy,Management man,Order order) {
 		this.regBuy = regBuy;
 		this.docs = docs;
 		this.man = man;
+		this.order = order;
 		initialize();
 	}
 
@@ -61,11 +65,12 @@ public class Search {
 	private void initialize() {
 		frmSearch = new JFrame();
 		frmSearch.setTitle("Search");
-		frmSearch.setBounds(100, 100, 611, 408);
+		frmSearch.setBounds(100, 100, 766, 408);
 		frmSearch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSearch.getContentPane().setLayout(null);
 		
 		lister = new DefaultListModel();
+		orderLister = new DefaultListModel();
 		list = new JList<>(lister);
 		list.setBounds(0, 25, 277, 259);
 		list.setFont(new Font("Serif", Font.BOLD, 13));
@@ -75,6 +80,7 @@ public class Search {
 		frmSearch.getContentPane().add(list);
 		display();
 		
+	
 		
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBackground(Color.WHITE);
@@ -93,7 +99,7 @@ public class Search {
 		details.setFont(new Font("Serif", Font.BOLD, 13));
 		details.setForeground(Color.WHITE);
 		details.setBackground(Color.DARK_GRAY);
-		details.setBounds(287, 25, 239, 259);
+		details.setBounds(287, 25, 192, 259);
 		frmSearch.getContentPane().add(details);
 		
 		JLabel det = DefaultComponentFactory.getInstance().createLabel("Details");
@@ -140,7 +146,7 @@ public class Search {
 				}
 			}
 		});
-		dets.setBounds(168, 311, 89, 23);
+		dets.setBounds(125, 311, 114, 23);
 		frmSearch.getContentPane().add(dets);
 		
 		JButton ret = new JButton("Return");
@@ -155,7 +161,7 @@ public class Search {
 				}
 			}
 		});
-		ret.setBounds(481, 311, 89, 23);
+		ret.setBounds(623, 311, 105, 23);
 		frmSearch.getContentPane().add(ret);
 		
 		JTextArea textArea = new JTextArea();
@@ -202,12 +208,65 @@ public class Search {
 				}
 			
 		});
-		btnSearch.setBounds(37, 311, 93, 23);
+		btnSearch.setBounds(10, 311, 105, 23);
 		frmSearch.getContentPane().add(btnSearch);
 		
-		JButton btnAddToShopping = new JButton("Add to shopping cart");
-		btnAddToShopping.setBounds(287, 311, 157, 23);
+		JButton btnAddToShopping = new JButton("Add to Cart");
+		btnAddToShopping.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for(int i = 0; i < docs.size();i++){
+					if(docs.get(i).getName().equals(docName)){
+						order.add(docs.get(i));
+						displayOrder();
+					}
+				}
+			}
+		});
+		btnAddToShopping.setBounds(248, 311, 144, 23);
 		frmSearch.getContentPane().add(btnAddToShopping);
+		
+		JButton remove = new JButton("Remove");
+		remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for(int i =0; i < order.getDocs().size();i++){
+					if(order.getDocs().get(i).getName().equals(docName)){
+						order.remove(order.getDocs().get(i));
+						displayOrder();
+					}
+				}
+			}
+		});
+		remove.setBounds(402, 311, 105, 23);
+		frmSearch.getContentPane().add(remove);
+		
+		orderList = new JList<>(orderLister);
+		orderList.setFont(new Font("Serif", Font.BOLD, 13));
+		orderList.setForeground(Color.WHITE);
+		orderList.setBackground(Color.DARK_GRAY);
+		orderList.setBounds(489, 25, 230, 259);
+		
+		orderList.addListSelectionListener(new OrderListen());
+		frmSearch.getContentPane().add(orderList);
+		
+		JLabel cart = DefaultComponentFactory.getInstance().createLabel("My Cart");
+		cart.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		cart.setForeground(Color.BLACK);
+		cart.setBounds(496, 2, 92, 21);
+		frmSearch.getContentPane().add(cart);
+		
+		JButton payment = new JButton("Pay");
+		payment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String type = JOptionPane.showInputDialog("Enter your card type");
+				int card = Integer.parseInt(JOptionPane.showInputDialog("Enter your card number"));
+				Payment pay = new Payment(order,card,type);
+				frmSearch.dispose();
+				PaymentReview pr = new PaymentReview(pay);
+				
+			}
+		});
+		payment.setBounds(517, 311, 89, 23);
+		frmSearch.getContentPane().add(payment);
 		frmSearch.setVisible(true);
 	}
 
@@ -219,12 +278,29 @@ public class Search {
 		
 	}
 	
+	private void displayOrder(){
+		orderLister.removeAllElements();
+		for(int i = 0; i < order.getDocs().size();i++){
+			orderLister.addElement(order.getDocs().get(i).getName());
+		}
+	}
+	
 	class DocListen implements ListSelectionListener{
 
 		public void valueChanged(ListSelectionEvent arg0) {
 			// TODO Auto-generated method stub
 
 			docName = list.getSelectedValue();
+		}
+
+	}
+	
+	class OrderListen implements ListSelectionListener{
+
+		public void valueChanged(ListSelectionEvent arg0) {
+			// TODO Auto-generated method stub
+
+			docName = orderList.getSelectedValue();
 		}
 
 	}

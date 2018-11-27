@@ -18,6 +18,7 @@ public class Visitor {
 	private Vector<Document> docs;
 	private OrdinaryBuyer ob;
 	private Management man;
+	private Order order;
 	/**
 	 * Launch the application.
 	 */
@@ -42,6 +43,7 @@ public class Visitor {
 		this.ob = ob;
 		this.docs = docs;
 		this.man = man;
+		order = new Order();
 		initialize();
 	}
 
@@ -67,7 +69,7 @@ public class Visitor {
 		btnSearchForA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmVisitor.dispose();
-				Search vs = new Search(docs,ob,man);
+				Search vs = new Search(docs,ob,man,order);
 			}
 		});
 		btnSearchForA.setBounds(153, 76, 170, 32);
