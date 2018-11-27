@@ -77,7 +77,7 @@ public class Operator implements MaintainDocs {
 		frmOperator.getContentPane().add(list);
 		display();
 		JButton add = new JButton("Add");
-		add.setBounds(10, 295, 89, 23);
+		add.setBounds(0, 295, 89, 23);
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String type = JOptionPane.showInputDialog("What is the document type?(Book, Journal, Magazine)");
@@ -111,7 +111,7 @@ public class Operator implements MaintainDocs {
 				}
 			}
 		});
-		remove.setBounds(121, 295, 89, 23);
+		remove.setBounds(97, 295, 89, 23);
 		frmOperator.getContentPane().add(remove);
 		
 		JButton update = new JButton("Update");
@@ -125,7 +125,7 @@ public class Operator implements MaintainDocs {
 				}
 			}
 		});
-		update.setBounds(232, 295, 82, 23);
+		update.setBounds(196, 295, 82, 23);
 		frmOperator.getContentPane().add(update);
 		
 		JScrollBar scrollBar = new JScrollBar();
@@ -192,7 +192,7 @@ public class Operator implements MaintainDocs {
 				}
 			}
 		});
-		dets.setBounds(338, 295, 89, 23);
+		dets.setBounds(297, 295, 89, 23);
 		frmOperator.getContentPane().add(dets);
 		
 		JButton ret = new JButton("Return");
@@ -204,7 +204,7 @@ public class Operator implements MaintainDocs {
 				man = new Management(docs);
 			}
 		});
-		ret.setBounds(437, 295, 89, 23);
+		ret.setBounds(396, 295, 89, 23);
 		frmOperator.getContentPane().add(ret);
 		frmOperator.setVisible(true);
 	}
@@ -235,13 +235,13 @@ public class Operator implements MaintainDocs {
 	for(int i = 0; i < docs.size();i++){
 		if(docs.get(i).getName().equals(name)){
 			if(docs.get(i) instanceof Book){
-				UpdateBook ub = new UpdateBook(docs,name);
+		UpdateBook ub = new UpdateBook(docs,name);
 			}
 			else if(docs.get(i) instanceof Journal){
-				UpdateJournal uj = new UpdateJournal(docs,name);
+				
 			}
 			else{
-				UpdateMagazine um = new UpdateMagazine(docs,name);
+				
 			}
 		}
 	}
